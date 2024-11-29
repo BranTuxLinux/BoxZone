@@ -1,5 +1,5 @@
 "use client";
-import { LoginSchema } from "@/lib/zod";
+import { RegisterSchema } from "@/lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -13,27 +13,28 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { loginAction } from "@/actions/auth-actions";
+import {  registerAction } from "@/actions/auth-actions";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-export default function FormLogin() {
+export default function RegisterForm() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   // 1. Define your form.
-  const form = useForm<z.infer<typeof LoginSchema>>({
-    resolver: zodResolver(LoginSchema),
+  const form = useForm<z.infer<typeof RegisterSchema>>({
+    resolver: zodResolver(RegisterSchema),
     defaultValues: {
       email: "",
       password: "",
+      name: ''
     },
   });
-  async function onSubmit(values: z.infer<typeof LoginSchema>) {
+  async function onSubmit(values: z.infer<typeof RegisterSchema>) {
     startTransition(async () => {
-      const response = await loginAction(values);
+      const response = await registerAction(values);
       console.log(response);
       if (response.error) setError(response.error);
-      else router.push("/dashboard");
+      else router.push("/admin");
     });
   }
   return (
@@ -69,11 +70,24 @@ export default function FormLogin() {
               </FormItem>
             )}
           />
+           <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name </FormLabel>
+                <FormControl>
+                  <Input placeholder="Zoe Alexandra..." {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <hr />
           <br />
           {error && <FormMessage>{error}</FormMessage>}
           <Button type="submit" disabled={isPending} className="container py-5">
-            Login
+            Register
           </Button>
         </form>
       </Form>
