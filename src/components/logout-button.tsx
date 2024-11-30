@@ -9,5 +9,5 @@ export default function LogoutBtn() {
         redirectTo: '/login'
     });
   };
-  return <Button onClick={hC}>Logout</Button>;
+  return <Button onClick={hC} className="w-full">Salir</Button>;
 }

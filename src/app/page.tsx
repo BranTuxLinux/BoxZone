@@ -1,28 +1,22 @@
 import { auth } from "@/auth";
-import LoginButtonGoogle from "@/components/LoginGoogle-Button";
 import LogoutBtn from "@/components/logout-button";
-import { signIn } from "next-auth/react";
-import Link from "next/link";
+import { CarrouselFlowBite } from "@/components/template/landing/carrousel";
+import { FooterLandingPage } from "@/components/template/landing/Footer";
+import NavbarLandingPage from "@/components/template/landing/navbar-LandingPage";
+import SecuritySection from "@/components/template/landing/SeguritySection";
+import StepPage from "@/components/template/landing/StepPage";
 
 export default async function Home() {
   const session = await auth();
-  console.log({session})
-  if (!session) {
-    return (
-      <div className="container h-screen  flex justify-around items-center">
-        <h1>hello </h1>
-        <Link href={"/login"}>Login</Link>
-        <Link href={"/register"}>Register</Link>
-        <LoginButtonGoogle />
-      </div>
-    );
-  }
+  console.log({ session });
+
   return (
-    <div className="container">
-      <pre>{JSON.stringify(session, null, 2)}</pre>
-      <hr />
-      <br />
-      <LogoutBtn />
+    <div className=" justify-around items-center flex-col ">
+      <NavbarLandingPage />
+      <CarrouselFlowBite />
+      <StepPage />
+      <SecuritySection />
+      <FooterLandingPage />
     </div>
   );
 }

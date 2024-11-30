@@ -6,6 +6,7 @@ import { z } from "zod";
 import User, { IUser } from "@/backend/models/User";
 import bcrypt from "bcryptjs";
 import mongooseDB from "@/lib/mongoose";
+import { signOut } from "next-auth/react";
 export const loginAction = async (values: z.infer<typeof LoginSchema>) => {
   try {
     await signIn("credentials", {
@@ -56,6 +57,9 @@ export const registerAction = async (
     return { error: "error 500" };
   }
 };
+export const LogoutAction= async()=> {
+  await signOut({ redirectTo: "/login" })
+}
 export const LoginGoogle= async()=> {
   await signIn('google',{ redirectTo: "/" })
 }

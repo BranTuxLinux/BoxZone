@@ -11,19 +11,27 @@ export default {
     GoogleProvider({
       clientId: process.env.AUTH_GOOGLE_ID,
       clientSecret: process.env.AUTH_GOOGLE_SECRET,
+      allowDangerousEmailAccountLinking: true,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+        },
+      },
+
       profile(profile) {
         return { role: profile.role ?? "user", ...profile };
       },
     }),
     Credentials({
       authorize: async (credentials) => {
-        await mongooseDB()
+        await mongooseDB();
         console.log({ credentials });
         const { data, success } = LoginSchema.safeParse(credentials);
         if (!success) {
           throw new Error("Invalid Credentials");
         }
-
 
         //Camnbiar
         const user = await User.findOne({
