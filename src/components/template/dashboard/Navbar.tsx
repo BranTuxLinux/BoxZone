@@ -1,5 +1,6 @@
-import { auth, signOut } from "@/auth";
+import { auth } from "@/auth";
 import LogoutBtn from "@/components/logout-button";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import {
   Avatar,
   Dropdown,
@@ -9,20 +10,18 @@ import {
   Navbar,
   NavbarBrand,
   NavbarCollapse,
-  NavbarLink,
   NavbarToggle,
 } from "flowbite-react";
 
 export async function NavbarDashboard() {
   const session = await auth();
+  const role = session?.user.role;
   console.log({ session });
   return (
     <Navbar fluid rounded>
-      <NavbarBrand href="https://flowbite-react.com">
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white ">
-          Flowbite React
-        </span>
-      </NavbarBrand>
+      <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white ">
+        <SidebarTrigger />
+      </span>
       <div className="flex md:order-2">
         <Dropdown
           arrowIcon={false}
@@ -39,29 +38,18 @@ export async function NavbarDashboard() {
           }
         >
           <DropdownHeader>
-            <span className="block text-sm">{session?.user.name}</span>
-            <span className="block truncate   text-sm font-medium">
-              {session?.user.email}
+            <span className="block text-sm">
+              {role === "user" ? "Usuario Común" : "Premium"}
             </span>
+            <span className="block truncate   text-sm font-medium"></span>
           </DropdownHeader>
           <DropdownItem>Settings</DropdownItem>
-          <DropdownItem></DropdownItem>
           <DropdownDivider />
           <DropdownItem className="flex items-center justify-center w-full">
             <LogoutBtn />
           </DropdownItem>
         </Dropdown>
-        <NavbarToggle />
       </div>
-      <NavbarCollapse>
-        <NavbarLink href="#" active>
-          Home
-        </NavbarLink>
-        <NavbarLink href="#">About</NavbarLink>
-        <NavbarLink href="#">Services</NavbarLink>
-        <NavbarLink href="#">Pricing</NavbarLink>
-        <NavbarLink href="#">Contact</NavbarLink>
-      </NavbarCollapse>
     </Navbar>
   );
 }

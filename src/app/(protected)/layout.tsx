@@ -1,4 +1,6 @@
 import { NavbarDashboard } from "@/components/template/dashboard/Navbar";
+import { AppSidebar } from "@/components/template/dashboard/Sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import React from "react";
 
 export default function LayoutDashboard({
@@ -7,8 +9,13 @@ export default function LayoutDashboard({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="">
-      <NavbarDashboard />{children}
-    </main>
+    <SidebarProvider>
+      <AppSidebar />
+      <main className="w-full">
+        
+      <NavbarDashboard />
+        {children}
+      </main>
+    </SidebarProvider>
   );
 }
