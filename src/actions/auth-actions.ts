@@ -27,6 +27,7 @@ export const registerAction = async (
   values: z.infer<typeof RegisterSchema>
 ) => {
   try {
+    console.log('Iniciando...')
     const { data, success } = RegisterSchema.safeParse(values);
     if (!success) return { error: "invalid data" };
     await mongooseDB()
@@ -46,7 +47,7 @@ export const registerAction = async (
     await signIn("credentials", {
       email: values.email,
       password: data.password,
-      redirect: false,
+      redirectTo:"/dashboard"
     });
     return {success: true}
   } catch (error) {
@@ -61,5 +62,5 @@ export const LogoutAction= async()=> {
   await signOut({ redirectTo: "/login" })
 }
 export const LoginGoogle= async()=> {
-  await signIn('google',{ redirectTo: "/" })
+  await signIn('google',{ redirectTo: "/" ,  })
 }

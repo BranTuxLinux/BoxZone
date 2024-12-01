@@ -21,7 +21,10 @@ export default {
       },
 
       profile(profile) {
-        return { role: profile.role ?? "user", ...profile };
+        return { role: profile.role ?? "user",
+          img: profile.image ?? "user",
+          
+          ...profile };
       },
     }),
     Credentials({
