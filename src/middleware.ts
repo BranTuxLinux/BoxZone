@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 const { auth: middleware } = NextAuth(authConfig);
 const publicRoutes = ["/", "/login", "/register"];
-const startsRoutes = ['/api/auth/callback/google']
+const startsRoutes = ['/api/auth/callback/google', "/api/"]
 export default middleware((req) => {
   const { nextUrl, auth } = req;
   const isLoggedIn = !!auth?.user;
