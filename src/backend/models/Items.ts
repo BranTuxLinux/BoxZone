@@ -1,4 +1,4 @@
-import { Schema, model, models, Document } from "mongoose";
+import { Schema, model, models, Document, Model } from "mongoose";
 
 export interface ITems extends Document {
   amount: number;
@@ -13,5 +13,6 @@ const ItemsSchema = new Schema<ITems>({
   Category_FK: { type: Schema.Types.ObjectId, ref: "Category", required:false },
   Inventory_FK: { type: Schema.Types.ObjectId, ref: "Inventory" ,required: false },
 });
+const ItemModel: Model<ITems> = models.Item || model<ITems>('Item', ItemsSchema, "Items");
 
-export default models.Items || model<ITems>("Items", ItemsSchema, "Items");
+export default ItemModel;

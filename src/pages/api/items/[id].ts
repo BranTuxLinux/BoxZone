@@ -1,22 +1,45 @@
+import ItemModel from "@/backend/models/Items";
+import { Methods } from "@/pages/api";
+import { ItemsParse } from "@/schemas/items";
 import { NextApiRequest, NextApiResponse } from "next";
+import { match } from "ts-pattern";
 
-// Este es el handler para tu ruta /api/items/[id]
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  // Accedemos al parámetro "id" desde req.query
-  const { id } = req.query; // req.query.id es el parámetro de la ruta
+  const { id } = req.query;
+  const methods = req.method as Methods | undefined;
+  match(methods)
+    .with(Methods.GET, async () => {
+      const data = await ItemModel.findById(id);
+      console.log(data);
+      res.status(200).json({ message: "GOOD", data });
+    })
+    .with(Methods.PUT, async () => {
+      try {
+        const data = await ItemsParse(req, res);
+        if (!data) return;
+        console.log(data)
+        const itemsUpdated = await ItemModel.findByIdAndUpdate(
+          id,
+          {
+            $set: {
+              pricing: data.pricing,
+              amount: data.amount,
+              Category_FK: data.Category_FK,
+            },
+          },
+          { new: true }
+        );
+        console.log(itemsUpdated)
+        if (!itemsUpdated) {
+          return res
+            .status(404)
+            .json({ success: false, message: "Item not found" });
+        }
 
-  // Verificamos si "id" está presente
-  if (!id || typeof id !== "string") {
-    return res.status(400).json({ message: "Invalid or missing ID" });
-  }
-
-  // Lógica para manejar la solicitud dependiendo del método HTTP
-  switch (req.method) {
-    case "GET":
-      // Aquí puedes hacer algo con el "id", por ejemplo, buscar un ítem
-      return res.status(200).json({ message: `Fetching item with ID: ${id}` });
-    // Agregar otros casos para POST, PUT, DELETE si es necesario
-    default:
-      return res.status(405).json({ message: "Method Not Allowed" });
-  }
+        return res.status(200).json({ success: true, data: itemsUpdated });
+      } catch (error) {
+        console.log(error);
+        return res.status(500).json({ success: false, message: "Error Items" });
+      }
+    });
 }
