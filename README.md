@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# API Endpoints Checklist
 
-## Getting Started
+## Category
+- [ ] **GET** /api/category - Obtener todas las categorías
+- [ ] **POST** /api/category - Crear una nueva categoría
+- [ ] **GET** /api/category/:id - Obtener categoría por ID
+- [ ] **PUT** /api/category/:id - Actualizar categoría por ID
+- [ ] **DELETE** /api/category/:id - Eliminar categoría por ID
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## History
+- [ ] **GET** /api/history - Obtener todo el historial
+- [ ] **POST** /api/history - Crear un nuevo registro de historial
+- [ ] **GET** /api/history/:id - Obtener historial por ID
+- [ ] **PUT** /api/history/:id - Actualizar historial por ID
+- [ ] **DELETE** /api/history/:id - Eliminar historial por ID
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Inventory
+- [ ] **GET** /api/inventory - Obtener todo el inventario
+- [ ] **POST** /api/inventory - Crear un nuevo ítem en el inventario
+- [ ] **GET** /api/inventory/:id - Obtener ítem de inventario por ID
+- [ ] **PUT** /api/inventory/:id - Actualizar ítem de inventario por ID
+- [ ] **DELETE** /api/inventory/:id - Eliminar ítem de inventario por ID
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Items
+- [x] **GET** /api/items - Obtener todos los ítems
+- [x] **POST** /api/items - Crear un nuevo ítem
+- [x] **GET** /api/items/:id - Obtener ítem por ID
+- [x] **PUT** /api/items/:id - Actualizar ítem por ID
+- [x] **DELETE** /api/items/:id - Eliminar ítem por ID
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## User
+- [x] **GET** /api/user - Obtener todos los usuarios
+- [x] **POST** /api/user - Crear un nuevo usuario
+- [x] **GET** /api/user/:id - Obtener usuario por ID
+- [ ] **PUT** /api/user/:id - Actualizar usuario por ID
+- [ ] **DELETE** /api/user/:id - Eliminar usuario por ID
