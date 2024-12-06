@@ -1,6 +1,6 @@
 export type Data<T = null> = {
   success: boolean;
-  data?: T;
+  data?: T | null;
   message?: string;
 };
 export enum Methods {
