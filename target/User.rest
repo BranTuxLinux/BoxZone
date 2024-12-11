@@ -1,0 +1,39 @@
+# Obtener todos los usuarios
+GET http://localhost:3000/api/user
+Content-Type: application/json
+
+###
+# Obtener Usuario por ID
+GET http://localhost:3000/api/user/674b9dc66d44f2a71571b282
+Content-Type: application/json
+
+###
+# Haciendo una Actualización
+PUT http://localhost:3000/api/user/674b9dc66d44f2a71571b282
+Content-Type: application/json
+
+{
+    "company": "PING"
+}
+
+### password and Company siendo OPCIONALES
+###
+# ! Crear un usuario no implementado
+# POST http://localhost:3000/api/users
+# Content-Type: application/json
+
+# {
+#   "name": "Juan Pérez",
+#   "email": "juan.perez@example.com",
+#   "password": "securePassword123"
+# }
+
+###
+
+# Eliminar un usuario
+DELETE http://localhost:3000/api/user
+Content-Type: application/json
+
+{
+  "id": "12345"
+}

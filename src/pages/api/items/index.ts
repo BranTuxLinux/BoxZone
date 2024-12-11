@@ -3,7 +3,7 @@ import connectToDatabase from "@/lib/mongoose";
 import { ITems } from "@/backend/models/Items";
 import { match } from "ts-pattern";
 // import { z } from "zod";
-import { Data, Methods } from "../api";
+import { Data, Methods } from "../../api";
 import { GetItems, PostItems } from "@/backend/handlers/ItemsHandlers";
 
 export default async function handler(

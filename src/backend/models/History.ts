@@ -3,7 +3,7 @@ import { Schema, model, models, Document } from "mongoose";
 export interface IHistory extends Document {
   pricing: number;
   amount: number;
-  state: "Modificado" | "Creado" | "Eliminado";
+  state: "modified" | "created"| "deleted";
   OrderNumber?: number;
 }
 

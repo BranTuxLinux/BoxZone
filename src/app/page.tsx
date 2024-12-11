@@ -1,5 +1,4 @@
 import { auth } from "@/auth";
-import LogoutBtn from "@/components/logout-button";
 import { CarrouselFlowBite } from "@/components/template/landing/carrousel";
 import { FooterLandingPage } from "@/components/template/landing/Footer";
 import NavbarLandingPage from "@/components/template/landing/navbar-LandingPage";

@@ -1,0 +1,51 @@
+# Obtener todos los ITEMS
+GET http://localhost:3000/api/items
+Content-Type: application/json
+
+###
+
+# Crear un ITEM
+
+POST http://localhost:3000/api/items
+Content-Type: application/json
+
+{
+  "amount": 200,
+  "pricing": 3400
+}
+
+###
+#   "Category_FK:
+#   "Inventory_FK": 
+
+# Eliminar un ITEM
+
+DELETE http://localhost:3000/api/items
+Content-Type: application/json
+
+{
+  "id": "12345"
+}
+
+
+# Obtener un item por ID
+GET http://localhost:3000/api/items/67515bc9e8c2eee41668422d
+Content-Type: application/json
+
+###
+
+# Actualizar un item por ID
+PUT http://localhost:3000/api/items/12345
+Content-Type: application/json
+
+{
+  "name": "Item actualizado",
+  "description": "Descripción actualizada",
+  "price": 25.99
+}
+
+###
+
+# Eliminar un item por ID
+DELETE http://localhost:3000/api/items/12345
+Content-Type: application/json

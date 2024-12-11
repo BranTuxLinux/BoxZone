@@ -20,6 +20,7 @@ const userSchema = new Schema<IUser>(
   },
   { timestamps: true }
 );
-const UserModel :Model<IUser> =models.User || model<IUser>("User",userSchema,"User")
+const modelUser = models?.User
+const UserModel: Model<IUser> = modelUser|| model<IUser>("User",userSchema,"User")
 
 export default UserModel

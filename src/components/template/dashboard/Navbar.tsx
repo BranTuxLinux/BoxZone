@@ -1,4 +1,3 @@
-import { auth } from "@/auth";
 import LogoutBtn from "@/components/logout-button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import {
@@ -8,15 +7,12 @@ import {
   DropdownHeader,
   DropdownItem,
   Navbar,
-  NavbarBrand,
-  NavbarCollapse,
-  NavbarToggle,
 } from "flowbite-react";
+import { Session } from "next-auth";
 
-export async function NavbarDashboard() {
-  const session = await auth();
-  const role = session?.user.role;
-  console.log({ session });
+export const NavbarDashboard = ({ session }: { session: Session | null }) => {
+  const {role, img, name, email} = session?.user;
+  
   return (
     <Navbar fluid rounded>
       <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white ">
@@ -27,11 +23,11 @@ export async function NavbarDashboard() {
           arrowIcon={false}
           inline
           label={
-            <Avatar img={session?.user.img} rounded>
+            <Avatar img={img} rounded alt="Avatar">
               <div className="space-y-1 font-medium dark:text-white">
-                <div>{session?.user.name}</div>
+                <div>{name}</div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">
-                  {session?.user.email}
+                  {email}
                 </div>
               </div>
             </Avatar>
@@ -45,11 +41,11 @@ export async function NavbarDashboard() {
           </DropdownHeader>
           <DropdownItem>Settings</DropdownItem>
           <DropdownDivider />
-          <DropdownItem className="flex items-center justify-center w-full">
+          <div className="flex items-center justify-center w-full p-3">
             <LogoutBtn />
-          </DropdownItem>
+          </div>
         </Dropdown>
       </div>
     </Navbar>
   );
-}
+};

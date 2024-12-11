@@ -29,10 +29,10 @@
 
 ## Items
 - [x] **GET** /api/items - Obtener todos los ítems
-- [x] **POST** /api/items - Crear un nuevo ítem
-- [x] **GET** /api/items/:id - Obtener ítem por ID
-- [x] **PUT** /api/items/:id - Actualizar ítem por ID
-- [x] **DELETE** /api/items/:id - Eliminar ítem por ID
+- [ ] **POST** /api/items - Crear un nuevo ítem
+- [ ] **GET** /api/items/:id - Obtener ítem por ID
+- [ ] **PUT** /api/items/:id - Actualizar ítem por ID
+- [ ] **DELETE** /api/items/:id - Eliminar ítem por ID
 
 ---
 
@@ -40,5 +40,5 @@
 - [x] **GET** /api/user - Obtener todos los usuarios
 - [x] **POST** /api/user - Crear un nuevo usuario
 - [x] **GET** /api/user/:id - Obtener usuario por ID
-- [ ] **PUT** /api/user/:id - Actualizar usuario por ID
+- [x] **PUT** /api/user/:id - Actualizar usuario por ID
 - [ ] **DELETE** /api/user/:id - Eliminar usuario por ID

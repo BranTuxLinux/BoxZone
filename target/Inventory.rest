@@ -1,0 +1,25 @@
+# Obtener todos los inventarios
+GET http://localhost:3000/api/inventory
+Content-Type: application/json
+
+###
+
+# Crear un inventario
+POST http://localhost:3000/api/inventory
+Content-Type: application/json
+
+{
+  "name": "Nuevo Inventario",
+  "amount": 100,
+  "price": 200
+}
+
+###
+
+# Eliminar un inventario
+DELETE http://localhost:3000/api/inventory
+Content-Type: application/json
+
+{
+  "id": "12345"
+}
