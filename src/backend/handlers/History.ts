@@ -1,28 +1,33 @@
+import { Data } from "@/pages/api";
 import { NextApiRequest, NextApiResponse } from "next";
-import History from "@/backend/models/History";
+import { HistoryModel, IHistory } from "../models/History";
 
-// GET: Obtener todos los registros históricos
-export const GetHistories = async (req: NextApiRequest, res: NextApiResponse) => {
+type ApiHandler = (
+  req: NextApiRequest ,
+  res: NextApiResponse<Data<IHistory[] |IHistory>>
+) => Promise<void>;
+
+export const GetHistory: ApiHandler = async (req, res) => {
   try {
-    const histories = await History.find();
-    res.status(200).json({ success: true, data: histories });
+    const history = await HistoryModel.find();
+    return res.status(200).json({ success: true, data: history });
   } catch (error) {
-    console.error("Error fetching histories:", error);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
+    console.log(error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Error in History" });
   }
 };
 
-// POST: Crear un registro histórico
-export const PostHistory = async (req: NextApiRequest, res: NextApiResponse) => {
+export const GetHistoryByInventory: ApiHandler = async (req, res) => {
+  const { inventoryId } = req.query;
   try {
-    const { pricing, amount, state, OrderNumber } = req.body;
-    if (!pricing || !amount || !state) {
-      return res.status(400).json({ success: false, message: "Missing fields" });
-    }
-    const newHistory = await History.create({ pricing, amount, state, OrderNumber });
-    res.status(201).json({ success: true, data: newHistory });
+    const history = await HistoryModel.find({ inventoryId });
+    return res.status(200).json({ success: true, data: history });
   } catch (error) {
-    console.error("Error creating history:", error);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
+    console.log(error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Error in History" });
   }
 };

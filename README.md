@@ -1,42 +1,48 @@
 # API Endpoints Checklist
 
-## Category
-- [ ] **GET** /api/category - Obtener todas las categorías
-- [ ] **POST** /api/category - Crear una nueva categoría
-- [ ] **GET** /api/category/:id - Obtener categoría por ID
-- [ ] **PUT** /api/category/:id - Actualizar categoría por ID
-- [ ] **DELETE** /api/category/:id - Eliminar categoría por ID
-
----
-
-## History
-- [ ] **GET** /api/history - Obtener todo el historial
-- [ ] **POST** /api/history - Crear un nuevo registro de historial
-- [ ] **GET** /api/history/:id - Obtener historial por ID
-- [ ] **PUT** /api/history/:id - Actualizar historial por ID
-- [ ] **DELETE** /api/history/:id - Eliminar historial por ID
-
 ---
 
 ## Inventory
-- [ ] **GET** /api/inventory - Obtener todo el inventario
-- [ ] **POST** /api/inventory - Crear un nuevo ítem en el inventario
-- [ ] **GET** /api/inventory/:id - Obtener ítem de inventario por ID
-- [ ] **PUT** /api/inventory/:id - Actualizar ítem de inventario por ID
-- [ ] **DELETE** /api/inventory/:id - Eliminar ítem de inventario por ID
+
+- [x] **GET** /api/inventory - Obtener todo el inventario
+- [x] **GET** /api/inventory?userId=123 - Obtener ítem de inventario por usuario
+- [x] **GET** /api/inventory?userId=123&id=123 - Listar inventario por usuario con populate
+- [x] **POST** /api/inventory - Crear un nuevo ítem en el inventario
+- [x] **PUT** /api/inventory?id= - Actualizar ítem de inventario por ID
+- [x] **DELETE** /api/inventory?id= - Eliminar ítem de inventario por ID
+
+---
+
+## Category
+
+- [x] **GET** /api/category - Listar todas las categorias
+- [x] **GET** /api/category?inventoryId= - Listar categoria por inventario
+- [x] **POST** /api/category - Crear una nueva categoría
+- [x] **PUT** /api/category?id= - Actualizar categoría por ID
+- [x] **DELETE** /api/category?id= - Eliminar categoría por ID
 
 ---
 
 ## Items
+
 - [x] **GET** /api/items - Obtener todos los ítems
-- [ ] **POST** /api/items - Crear un nuevo ítem
-- [ ] **GET** /api/items/:id - Obtener ítem por ID
-- [ ] **PUT** /api/items/:id - Actualizar ítem por ID
-- [ ] **DELETE** /api/items/:id - Eliminar ítem por ID
+- [ ] **GET** /api/items? - Obtener ítem por ID **Aun no**
+- [x] **POST** /api/items - Crear un nuevo ítem, add in history and inventory
+- [x] **PUT** /api/items?id - Actualizar ítem por ID
+- [x] **DELETE** /api/items?id - Eliminar ítem por ID 
+
+---
+
+## History
+
+- [x] **GET** /api/history - Obtener todo el historial
+- [x] **GET** /api/history?inventoryId - Obtener historial por Inventario
+- [x] **POST** reservado para Items - Crear un nuevo registro de historial
 
 ---
 
 ## User
+
 - [x] **GET** /api/user - Obtener todos los usuarios
 - [x] **POST** /api/user - Crear un nuevo usuario
 - [x] **GET** /api/user/:id - Obtener usuario por ID

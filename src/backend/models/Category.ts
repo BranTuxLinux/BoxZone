@@ -1,14 +1,19 @@
-import { Schema, model, models, Document } from "mongoose";
-
+import { Schema, model, models, Document, Types, Model } from "mongoose";
 export interface ICategory extends Document {
   name: string;
-  inventory_FK: Schema.Types.ObjectId;
+  description?: string;
+  inventoryId: Types.ObjectId;
 }
 
-const categorySchema = new Schema<ICategory>({
-  name: { type: String, required: true, unique: true },
-  inventory_FK: { type: Schema.Types.ObjectId, ref: "Inventory" },
+const CategorySchema = new Schema<ICategory>({
+  name: { type: String, required: true },
+  description: { type: String },
+  inventoryId: {
+    type: Schema.Types.ObjectId,
+    ref: "Inventory",
+    required: true,
+  },
 });
 
-export default models.Category ||
-  model<ICategory>("Category", categorySchema, "Category");
+export const CategoryModel: Model<ICategory> =
+  models.Category || model<ICategory>("Category", CategorySchema, "Category");

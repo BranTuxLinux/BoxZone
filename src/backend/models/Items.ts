@@ -1,18 +1,17 @@
 import { Schema, model, models, Document, Model } from "mongoose";
 
-export interface ITems extends Document {
-  amount: number;
-  pricing: number;
-  Category_FK?: Schema.Types.ObjectId;
-  Inventory_FK?: Schema.Types.ObjectId;
+export interface IItem extends Document {
+  quantity: number;
+  price: number;
+  categoryId?: Schema.Types.ObjectId;
+  inventoryId: Schema.Types.ObjectId;
 }
 
-const ItemsSchema = new Schema<ITems>({
-  amount: { type: Number, required: true },
-  pricing: { type: Number, required: true },
-  Category_FK: { type: Schema.Types.ObjectId, ref: "Category", required:false },
-  Inventory_FK: { type: Schema.Types.ObjectId, ref: "Inventory" ,required: false },
+const ItemSchema = new Schema<IItem>({
+  quantity: { type: Number, required: true },
+  price: { type: Number, required: true },
+  categoryId: { type: Schema.Types.ObjectId, ref: 'Category' },
+  inventoryId: { type: Schema.Types.ObjectId, ref: 'Inventory', required: true },
 });
-const ItemModel: Model<ITems> = models?.Item || model<ITems>('Item', ItemsSchema, "Items");
+export const ItemModel: Model<IItem> = models?.Item || model<IItem>('Item', ItemSchema, "Items");
 
-export default ItemModel;

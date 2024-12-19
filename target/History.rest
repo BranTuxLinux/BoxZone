@@ -1,0 +1,4 @@
+GET http://localhost:3000/api/history?inventoryId=6763ece62adec89da361bdf7
+
+###
+GET http://localhost:3000/api/history

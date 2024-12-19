@@ -1,17 +1,20 @@
-import { Schema, model, models, Document, Model } from "mongoose";
+import { Schema, model, models, Document, Types, Model } from "mongoose";
 
-export interface Inventory extends Document {
+export interface IInventory extends Document {
   name: string;
+  userId: Types.ObjectId;
+  items: Types.ObjectId[];
 }
 
-const InventorySchema = new Schema<Inventory>(
+const InventorySchema = new Schema<IInventory>(
   {
     name: { type: String, required: true },
+    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    items: [{ type: Schema.Types.ObjectId, ref: "Item" }],
   },
   { timestamps: true }
 );
 
-const ModelInventory: Model<Inventory> =
+export const InventoryModel: Model<IInventory> =
   models.Inventory ||
-  model<Inventory>("Inventory", InventorySchema, "Inventory");
-export default ModelInventory;
+  model<IInventory>("Inventory", InventorySchema, "Inventory");

@@ -1,25 +1,20 @@
-import { Schema, model, models, Document } from "mongoose";
+import { Schema, model, models, Document, Model, Types } from "mongoose";
 
 export interface IHistory extends Document {
-  pricing: number;
-  amount: number;
-  state: "modified" | "created"| "deleted";
-  OrderNumber?: number;
+  inventoryId: Types.ObjectId;
+  itemId: Types.ObjectId;
+  actionType: 'create' | 'update' | 'delete';
+  changes?: Record<string, unknown>;
+  timestamp: Date;
 }
 
-const historySchema = new Schema<IHistory>(
-  {
-    pricing: { type: Number, required: true },
-    amount: { type: Number, required: true },
-    state: {
-      type: String,
-      enum: ["modified", "created", "deleted"],
-      required: true,
-    },
-    OrderNumber: { type: Number },
-  },
-  { timestamps: true }
-);
+const HistorySchema = new Schema<IHistory>({
+  inventoryId: { type: Schema.Types.ObjectId, ref: 'Inventory', required: true },
+  itemId: { type: Schema.Types.ObjectId, ref: 'Item', required: true },
+  actionType: { type: String, enum: ['create', 'update', 'delete'], required: true },
+  changes: { type: Object },
+  timestamp: { type: Date, default: Date.now },
+});
 
-export default models.History ||
-  model<IHistory>("History", historySchema, "History");
+export const HistoryModel :Model<IHistory> = models.History || model<IHistory>('History', HistorySchema, "History");
+

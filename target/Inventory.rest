@@ -1,25 +1,27 @@
-# Obtener todos los inventarios
+### Listar todos los inventarios 
 GET http://localhost:3000/api/inventory
-Content-Type: application/json
+
+### Listar inventario por usuario con populate
+GET http://localhost:3000/api/inventory?userId=674b99756d44f2a71571b277&id=6763ece62adec89da361bdf7
+
+### Listar inventario por usuario
+GET http://localhost:3000/api/inventory?userId=674b99756d44f2a71571b277
 
 ###
-
-# Crear un inventario
 POST http://localhost:3000/api/inventory
 Content-Type: application/json
 
 {
-  "name": "Nuevo Inventario",
-  "amount": 100,
-  "price": 200
+  "name": "3 asdasdasdasdasdasdasdasd",
+  "userId": "674b99756d44f2a71571b277"
 }
-
-###
-
-# Eliminar un inventario
-DELETE http://localhost:3000/api/inventory
+### Update inventory
+PUT http://localhost:3000/api/inventory?id=6763ece62adec89da361bdf7
 Content-Type: application/json
 
 {
-  "id": "12345"
+    "name": "test"
 }
+
+### Deleted inventory
+DELETE http://localhost:3000/api/inventory?id=6763ddd10db80c0e01328e16

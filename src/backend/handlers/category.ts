@@ -1,28 +1,88 @@
+import { Data } from "@/pages/api";
 import { NextApiRequest, NextApiResponse } from "next";
-import Category from "@/backend/models/Category";
+import { CategoryModel, ICategory } from "../models/Category";
+import { ItemModel } from "../models/Items";
 
-// GET: Obtener todas las categorías
-export const GetCategories = async (req: NextApiRequest, res: NextApiResponse) => {
+type ApiHandler = (
+  req: NextApiRequest,
+  res: NextApiResponse<Data<ICategory[] | ICategory>>
+) => Promise<void>;
+
+export const GetCategory: ApiHandler = async (req, res) => {
   try {
-    const categories = await Category.find().populate("inventory_FK");
-    res.status(200).json({ success: true, data: categories });
+    const category = await CategoryModel.find();
+    return res.status(200).json({ success: true, data: category });
   } catch (error) {
-    console.error("Error fetching categories:", error);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
+    console.log(error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Error in Category" });
   }
 };
 
-// POST: Crear una categoría
-export const PostCategory = async (req: NextApiRequest, res: NextApiResponse) => {
+export const GetCategoryByInventory: ApiHandler = async (req, res) => {
+  const { inventoryId } = req.query;
   try {
-    const { name, inventory_FK } = req.body;
-    if (!name || !inventory_FK) {
-      return res.status(400).json({ success: false, message: "Missing fields" });
-    }
-    const newCategory = await Category.create({ name, inventory_FK });
-    res.status(201).json({ success: true, data: newCategory });
+    const category = await CategoryModel.find({ inventoryId });
+    return res.status(200).json({ success: true, data: category });
   } catch (error) {
-    console.error("Error creating category:", error);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
+    console.log(error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Error in Category" });
+  }
+};
+
+export const CreateCategory: ApiHandler = async (req, res) => {
+  const { name, description, inventoryId } = req.body;
+  try {
+    const category = await CategoryModel.create({
+      name,
+      description,
+      inventoryId,
+    });
+    return res.status(201).json({ success: true, data: category });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Error in Category" });
+  }
+};
+
+export const UpdateCategory: ApiHandler = async (req, res) => {
+  const { id } = req.query;
+  const { name, description, inventoryId } = req.body;
+  try {
+    const category = await CategoryModel.findByIdAndUpdate(
+      id,
+      { name, description, inventoryId },
+      { new: true }
+    );
+    return res.status(200).json({ success: true, data: category });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Error in Category" });
+  }
+};
+
+export const DeleteCategory: ApiHandler = async (req, res) => {
+  const { id } = req.query;
+  try {
+    const categoryUsed = await ItemModel.findOne({ categoryId: id });
+    if (categoryUsed) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Category is used in Items" });
+    }
+    await CategoryModel.findByIdAndDelete(id);
+    return res.status(200).json({ success: true, message: "Category deleted" });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Error in Category" });
   }
 };

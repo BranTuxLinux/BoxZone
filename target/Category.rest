@@ -1,0 +1,26 @@
+### Listar todas las categorias
+GET http://localhost:3000/api/category
+
+### Listar categoria por inventario
+GET http://localhost:3000/api/category?inventoryId=6763faa12adec89da361be0e
+
+### Crear una categoria
+POST http://localhost:3000/api/category
+Content-Type: application/json
+
+{
+  "name": "ASDASDASD",
+  "description": "Optional description",
+  "inventoryId": "6763faa12adec89da361be0e"
+}
+### Actualizar categoria
+PUT http://localhost:3000/api/category?id=6763f2f42adec89da361bdfe
+Content-Type: application/json
+
+{
+    "name": "test",
+    "description": "123123"
+}
+
+### Eliminar categoria
+DELETE http://localhost:3000/api/category?id=6763fad72adec89da361be12
