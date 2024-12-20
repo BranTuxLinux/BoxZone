@@ -7,16 +7,40 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
 
-export function CardInventory() {
+export function CardInventory({
+  id,
+  name,
+  createAt: createdAt,
+  updateAt
+}: {
+  id: string;
+  name: string;
+  createAt: Date | undefined;
+  updateAt: Date | undefined;
+}) {
+  const router = useRouter();
+
+  const HandleClick = () => { 
+    console.log("click")
+    console.log(id)
+    router.push(`/dashboard/${id}`)
+   }
   return (
-    <Card className="w-max ">
-      <CardHeader>
-        <CardTitle className="text-4xl">Inventario</CardTitle>
+    <Card
+    onClick={HandleClick}
+    className="w-max cursor-pointer hover:shadow-lg hover:scale-105 hover:transition-transform transition-transform">
+      <CardHeader
+      className=" max-w-sm"
+      >
+        <CardTitle className="text-4xl">{name}</CardTitle>
       </CardHeader>
       <CardContent>
-        <CardDescription>Creado 24/02/2024 </CardDescription>
-        <CardDescription>Ultima modificación 24/02/2024 </CardDescription>
+        <CardDescription>Creado {createdAt?.toLocaleDateString()}</CardDescription>
+        <CardDescription>
+          Ultima modificación {updateAt?.toLocaleDateString()}
+        </CardDescription>
       </CardContent>
     </Card>
   );

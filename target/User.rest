@@ -4,7 +4,7 @@ Content-Type: application/json
 
 ###
 # Obtener Usuario por ID
-GET http://localhost:3000/api/user/674b9dc66d44f2a71571b282
+GET http://localhost:3000/api/user/674aab156eaf5fe006449027
 Content-Type: application/json
 
 ###

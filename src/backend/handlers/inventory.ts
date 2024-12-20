@@ -24,9 +24,10 @@ export const GetInventoryByUser: ApiHandler = async (req, res) => {
   const { userId } = req.query;
   existsID(userId, res);
   try {
-    const inventory = await InventoryModel.find({ userId }).populate("items");
+    const inventory = await InventoryModel.find({ userId })
     return res.status(200).json({ success: true, data: inventory });
   } catch (error) {
+    console.log(error)
     return res
       .status(400)
       .json({ success: false, message: "Error in Inventory" });

@@ -12,14 +12,24 @@ type ApiHandler = (
 
 export const GetItems: ApiHandler = async (req, res) => {
   try {
-    const items = await ItemModel.find()
-      .populate("categoryId")
+    const items = await ItemModel.find();
     res.status(200).json({ success: true, data: items });
   } catch (error) {
     console.log({ error });
     res.status(400).json({ success: false, message: "Error in Items" });
   }
 };
+export const GetItemsByInventory: ApiHandler = async (req, res) => {
+  const { inventoryId } = req.query;
+  try {
+    const items = await ItemModel.find({ inventoryId }).populate("categoryId");
+    res.status(200).json({ success: true, data: items });
+  } catch (error) {
+    console.log({ error });
+    res.status(400).json({ success: false, message: "Error in Items" });
+  }
+};
+
 // create a new item
 interface IHistory extends Document {
   inventoryId: Types.ObjectId;
@@ -32,15 +42,21 @@ interface IHistory extends Document {
 export const CreateItem: ApiHandler = async (req, res) => {
   try {
     const body = req.body as IItem;
-    const existItem = await ItemModel.findOneAndUpdate(
-      { price: body.price },
-      { $inc: { quantity: body.quantity } },
-      { new: true }
-    );
-    if (existItem) {
+    // si el item ya existe, se actualiza la cantidad siempre y cuando el precio y el inventario sean iguales
+    const existItem = await ItemModel.findOne({
+      price: body.price,
+      inventoryId: body.inventoryId,
+    });
+
+    const updateItem = await existItem?.updateOne({
+      $inc: { quantity: body.quantity },
+      new: true,
+    });
+
+    if (updateItem) {
       await HistoryModel.create({
         inventoryId: body.inventoryId,
-        itemId: existItem._id,
+        itemId: updateItem._id,
         actionType: "update",
         changes: body,
         timestamp: new Date(),

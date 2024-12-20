@@ -1,5 +1,7 @@
 ### Listar todos los Items
 GET http://localhost:3000/api/items
+### Listar Items por inventario
+GET http://localhost:3000/api/items?inventoryId=67651bc7bb4c322b2eafed04
 
 ### Crear un Item
 POST http://localhost:3000/api/items
@@ -8,7 +10,7 @@ Content-Type: application/json
 {
   "quantity": 81,
   "price": 400,
-  "inventoryId": "6763ece62adec89da361bdf7"
+  "inventoryId": "6763faa12adec89da361be0e"
 }
 ### Actualizar un Item
 PUT http://localhost:3000/api/items?id=676404012adec89da361be21

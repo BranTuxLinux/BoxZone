@@ -5,7 +5,7 @@ GET http://localhost:3000/api/inventory
 GET http://localhost:3000/api/inventory?userId=674b99756d44f2a71571b277&id=6763ece62adec89da361bdf7
 
 ### Listar inventario por usuario
-GET http://localhost:3000/api/inventory?userId=674b99756d44f2a71571b277
+GET http://localhost:3000/api/inventory?userId=674aab156eaf5fe006449027
 
 ###
 POST http://localhost:3000/api/inventory
@@ -13,10 +13,10 @@ Content-Type: application/json
 
 {
   "name": "3 asdasdasdasdasdasdasdasd",
-  "userId": "674b99756d44f2a71571b277"
+  "userId": "674aab156eaf5fe006449027"
 }
 ### Update inventory
-PUT http://localhost:3000/api/inventory?id=6763ece62adec89da361bdf7
+PUT http://localhost:3000/api/inventory?id=67651bc7bb4c322b2eafed04
 Content-Type: application/json
 
 {
