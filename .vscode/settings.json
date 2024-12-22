@@ -45,5 +45,8 @@
         "**/*.yaml": true,
         "**/Makefile": true,
         "**/*.sh": true
-    }
+    },
+    "cSpell.words": [
+        "categoria"
+    ]
 }

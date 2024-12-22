@@ -1,7 +1,4 @@
 import { ItemsSection } from "@/components/ItemsSection";
-import { Input } from "@/components/ui/input";
-import { Toggle } from "@radix-ui/react-toggle";
-import { Button } from "flowbite-react";
 
 type IParams = {
     params: Promise<{ InventoryId: string }>
