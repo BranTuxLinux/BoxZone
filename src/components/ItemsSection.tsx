@@ -7,25 +7,35 @@ import { axiosClient } from "@/lib/axios";
 import { IItem } from "@/backend/models/Items";
 import { ItemCard } from "./ItemsCard";
 import { CreateItems } from "./CreateItem";
+import { useInventory } from "@/context/store";
 
 export const ItemsSection = ({ InventoryId }: { InventoryId: string }) => {
   const [data, setData] = useState<IItem[] | null>(null);
   const [filteredData, setFilteredData] = useState<IItem[] | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isPending, startTransition] = useTransition();
+  const {inventory,  setInventory } = useInventory();
 
   useEffect(() => {
-    axiosClient
-      .get(`/api/items?inventoryId=${InventoryId}`)
-      .then((res) => {
+    const fetchData = async () => {
+      try {
+        const res = await axiosClient.get(
+          `/api/items?inventoryId=${InventoryId}`
+        );
+        const category = await axiosClient.get(
+          `/api/category?inventoryId=${InventoryId}`
+        );
+        setInventory({ id: InventoryId, category: category.data.data });
         setData(res.data.data);
-        setFilteredData(res.data.data); // Inicialmente muestra todo
-      })
-      .catch((err) => {
+        setFilteredData(res.data.data);
+      } catch (err) {
         console.error(err);
-      });
+      }
+    };
+    fetchData();
   }, [InventoryId]);
-
+  
+  console.log(inventory)
   const handleSearch = (query: string) => {
     setSearchQuery(query);
     startTransition(() => {

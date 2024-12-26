@@ -2,7 +2,7 @@
 GET http://localhost:3000/api/inventory
 
 ### Listar inventario por usuario con populate
-GET http://localhost:3000/api/inventory?userId=674b99756d44f2a71571b277&id=6763ece62adec89da361bdf7
+GET http://localhost:3000/api/inventory?userId=6763ece62adec89da361bdf7&id=6763ece62adec89da361bdf7
 
 ### Listar inventario por usuario
 GET http://localhost:3000/api/inventory?userId=674aab156eaf5fe006449027
