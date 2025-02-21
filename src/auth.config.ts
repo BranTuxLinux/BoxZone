@@ -1,59 +1,48 @@
 import type { NextAuthConfig } from "next-auth";
-import Credentials from "next-auth/providers/credentials";
-import { LoginSchema } from "./lib/zod";
-import bcrypt from "bcryptjs";
-import GoogleProvider from "next-auth/providers/google";
-import mongooseDB from "./lib/mongoose";
-import User from "./backend/models/User";
-
+import Auth0 from "next-auth/providers/auth0";
+import {
+  AUTH0_CLIENT_ID,
+  AUTH0_CLIENT_SECRET,
+  AUTH0_ISSUER,
+  NEXTAUTH_SECRET,
+} from "./lib/config";
 export default {
+  trustHost: true,
   providers: [
-    GoogleProvider({
-      clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+    Auth0({
+      clientId: AUTH0_CLIENT_ID!,
+      clientSecret: AUTH0_CLIENT_SECRET!,
+      issuer: AUTH0_ISSUER!,
+      authorization: { params: { prompt: "login" } },
       allowDangerousEmailAccountLinking: true,
-      authorization: {
-        params: {
-          prompt: "consent",
-          access_type: "offline",
-          response_type: "code",
-        },
-      },
-
-      profile(profile) {
-        return {
-          id: profile.id ?? "user",
-          role: profile.role ?? "user",
-          img: profile.image ?? "user",
-
-          ...profile,
-        };
-      },
-    }),
-    Credentials({
-      authorize: async (credentials) => {
-        await mongooseDB();
-        console.log({ credentials });
-        const { data, success } = LoginSchema.safeParse(credentials);
-        if (!success) {
-          throw new Error("Invalid Credentials");
-        }
-
-        //Camnbiar
-        const user = await User.findOne({
-          email: data.email,
-        });
-        console.log(user);
-        if (!user) {
-          throw new Error("User not founded");
-        }
-        console.log({ data: data.password, pass: user.password });
-        const isValid = await bcrypt.compare(data.password, user.password);
-        if (!isValid) {
-          throw new Error("contrase;as no coinciden");
-        }
-        return user;
-      },
+      redirectProxyUrl: "",
+      checks: ["state"],
     }),
   ],
+
+  secret: NEXTAUTH_SECRET,
+  session: {
+    strategy: "jwt",
+  },
+  callbacks: {
+    authorized: async ({ auth }) => !!auth,
+    async signIn({ account, profile }) {
+      if (account?.provider === "auth0") {
+        return true;
+      }
+      return true;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.role = user.role;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.user.id = token.id;
+      session.user.role = token.role;
+      return session;
+    },
+  },
 } satisfies NextAuthConfig;
