@@ -13,7 +13,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { loginAction, LoginGoogle } from "@/actions/auth-actions";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import GoogleIcon from "./svgs/GoogleIcon";
@@ -104,13 +103,10 @@ export default function FormLogin() {
           </form>
         </Form>
         <h4 className="text-1xl text-center  ">
-          <span >¿No tienes Cuenta?</span>
+          <span>¿No tienes Cuenta?</span>
           <br />
           <span className=" opacity-50  hover:opacity-100 cursor-pointer">
-            <Link href={"/register"}>
-          Regístrate Aquí 
-            </Link>
-
+            <Link href={"/register"}>Regístrate Aquí</Link>
           </span>
         </h4>
       </div>

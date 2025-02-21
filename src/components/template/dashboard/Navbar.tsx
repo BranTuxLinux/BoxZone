@@ -1,4 +1,4 @@
-import LogoutBtn from "@/components/logout-button";
+import { LogOutAuth0 } from "@/components/LoginAuth0";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import {
   Avatar,
@@ -11,8 +11,8 @@ import {
 import { Session } from "next-auth";
 
 export const NavbarDashboard = ({ session }: { session: Session | null }) => {
-  const {role, img, name, email} = session?.user;
-  
+  const { role, img, name, email } = session?.user;
+
   return (
     <Navbar fluid rounded>
       <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white ">
@@ -41,9 +41,8 @@ export const NavbarDashboard = ({ session }: { session: Session | null }) => {
           </DropdownHeader>
           <DropdownItem>Settings</DropdownItem>
           <DropdownDivider />
-          <div className="flex items-center justify-center w-full p-3">
-            <LogoutBtn />
-          </div>
+
+          <LogOutAuth0 />
         </Dropdown>
       </div>
     </Navbar>

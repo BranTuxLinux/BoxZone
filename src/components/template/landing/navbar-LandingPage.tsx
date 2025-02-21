@@ -1,9 +1,7 @@
 import React from "react";
-import { ButtonGetStarted, ButtonRedirectDashboard } from "./ButtonGetStarted";
-import { auth } from "@/auth";
+import { LoginAuth0 } from "@/components/LoginAuth0";
 
 async function NavbarLandingPage() {
-  const session = await auth();
   return (
     <nav className="w-full bg-white border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -17,7 +15,7 @@ async function NavbarLandingPage() {
           </span>
         </a>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          {session ? <ButtonRedirectDashboard /> : <ButtonGetStarted />}
+          <LoginAuth0 />
           <button
             data-collapse-toggle="navbar-cta"
             type="button"

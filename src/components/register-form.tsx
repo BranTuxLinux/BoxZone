@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { LoginGoogle, registerAction } from "@/actions/auth-actions";
+import LoginGoogle, { registerAction } from "@/actions/auth-actions";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import GoogleIcon from "./svgs/GoogleIcon";
@@ -32,7 +32,7 @@ export default function RegisterForm() {
     },
   });
   async function onSubmit(values: z.infer<typeof RegisterSchema>) {
-    console.log({values})
+    console.log({ values });
     startTransition(async () => {
       const response = await registerAction(values);
       console.log(response);
@@ -48,7 +48,6 @@ export default function RegisterForm() {
             Resgistrate
           </h1>
         </div>
-       
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -108,8 +107,8 @@ export default function RegisterForm() {
             </Button>
           </form>
         </Form>
-            <br />
-            <Separator />
+        <br />
+        <Separator />
         <br />
         <h4 className="text-1xl">o inicia sesión Google</h4>
         <Button
